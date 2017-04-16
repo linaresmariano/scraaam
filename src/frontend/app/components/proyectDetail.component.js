@@ -4,16 +4,19 @@ import { ActivatedRoute } from '@angular/router';
 import ProyectService from "../services/proyect.service"
 
 @Component({
-	selector: 'milestoneDetail',
-	// inputs: [ 'milestone' ],
+	selector: 'proyectDetail',
 	template: `
-		<h2>{{milestone.name}}</h2>
-		<h4>{{milestone.epics ? milestone.epics.length : 0}} Epics - {{milestone.tasks}} Tasks
+		<div class="container-fluid">
+			<div class="row-fluid">
 
-		<epicList></epicList>
+				<div class="col-lg-6">
+					<milestoneList [proyect]="proyect"></milestoneList>
+				</div>
+			</div>
+		</div>
 	`
 })
-export default class MilestoneDetailComponent {
+export default class ProyectDetailComponent {
 
 	constructor(route, proyectService) {
 		this.route = route
@@ -21,17 +24,19 @@ export default class MilestoneDetailComponent {
 	}
 
 	ngOnInit() {
-		this.milestone = {}
 		this.proyect = {}
 		this.route.params.subscribe(params => {
-			this.proyectService.getMilestone(params.proyect, params.milestone)
-					.then(mile => this.milestone = mile)
+			this.proyectService.getProyect(params.id)
+					.then(proyect => {
+						this.proyect = proyect
+						this.proyectService._proyect = proyect
+					})
 					.catch(e => console.log(e));
 		});
 	}
 
 }
 
-MilestoneDetailComponent.parameters = [
+ProyectDetailComponent.parameters = [
 	ActivatedRoute, ProyectService
 ]

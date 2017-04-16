@@ -10,6 +10,7 @@ import 'rxjs/add/operator/toPromise'
 
 import AppComponent from './app/components/app.component'
 import NewProyectComponent from './app/components/newProyect.component'
+import ProyectDetailComponent from './app/components/proyectDetail.component'
 import MilestoneComponent from './app/components/milestone.component'
 import MilestoneListComponent from './app/components/milestoneList.component'
 import NewMilestoneComponent from './app/components/newMilestone.component'
@@ -24,7 +25,7 @@ import { RouterModule } from '@angular/router'
 let router = RouterModule.forRoot([
 	{ path: '', redirectTo: '/', pathMatch: 'full' },
 	{ path: 'proyects/new', component: NewProyectComponent },
-	{ path: 'proyects/:id', component: MilestoneListComponent },
+	{ path: 'proyects/:id', component: ProyectDetailComponent },
 	{ path: 'proyects/:proyect/milestones/:milestone', component: MilestoneDetailComponent },
 	{ path: 'proyects/:proyect/milestones/:milestone/epics/:epic', component: EpicDetailComponent }
 ], { useHash: true })
@@ -34,6 +35,7 @@ let router = RouterModule.forRoot([
 	styleUrls: ['./style.css'],
 	declarations: [
 		NewProyectComponent,
+		ProyectDetailComponent,
 		MilestoneComponent,
 		MilestoneListComponent,
 		NewMilestoneComponent,

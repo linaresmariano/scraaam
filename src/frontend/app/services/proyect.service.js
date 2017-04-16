@@ -7,6 +7,7 @@ export default class ProyectService {
 		constructor(http) {
 			this.http = http
 			this._proyects = []
+			this._proyect = {}
 			this.http.get("/proyects").toPromise()
 							.then(response => this._proyects.push(...response.json()))
 							.catch(err => console.log(err))
@@ -14,6 +15,10 @@ export default class ProyectService {
 
 		get proyects() {
 			return this._proyects;
+		}
+
+		get proyect() {
+			return this._proyect;
 		}
 
 		getProyect(id) {
