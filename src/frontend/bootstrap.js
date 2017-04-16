@@ -10,39 +10,41 @@ import 'rxjs/add/operator/toPromise'
 
 import AppComponent from './app/components/app.component'
 import NewProyectComponent from './app/components/newProyect.component'
+import MilestoneComponent from './app/components/milestone.component'
 import MilestoneListComponent from './app/components/milestoneList.component'
 import NewMilestoneComponent from './app/components/newMilestone.component'
-import PostComponent from './app/components/post.component'
-import NewPostComponent from './app/components/newPost.component'
-import PostDetailComponent from './app/components/postDetail.component'
-import PostListComponent from './app/components/postList.component'
+import MilestoneDetailComponent from './app/components/milestoneDetail.component'
 import CommentComponent from './app/components/comment.component'
+import EpicListComponent from './app/components/epicList.component'
+import NewEpicComponent from './app/components/newEpic.component'
+import EpicDetailComponent from './app/components/epicDetail.component'
 
 import { RouterModule } from '@angular/router'
 
 let router = RouterModule.forRoot([
-  { path: '', redirectTo: '/', pathMatch: 'full' },
-  { path: 'proyects/new', component: NewProyectComponent },
-  { path: 'proyects/:id', component: MilestoneListComponent },
-  { path: 'noticias', component: PostListComponent },
-  { path: 'noticia/:id', component: PostDetailComponent }
+	{ path: '', redirectTo: '/', pathMatch: 'full' },
+	{ path: 'proyects/new', component: NewProyectComponent },
+	{ path: 'proyects/:id', component: MilestoneListComponent },
+	{ path: 'proyects/:proyect/milestones/:milestone', component: MilestoneDetailComponent },
+	{ path: 'proyects/:proyect/milestones/:milestone/epics/:epic', component: EpicDetailComponent }
 ], { useHash: true })
 
 @NgModule({
-  imports: [ router, BrowserModule, FormsModule, HttpModule ],
-  styleUrls: ['./style.css'],
-  declarations: [
-    NewProyectComponent,
-    MilestoneListComponent,
-    NewMilestoneComponent,
-    PostComponent,
-    NewPostComponent,
-    AppComponent,
-    PostDetailComponent,
-    PostListComponent,
-    CommentComponent
-  ],
-  bootstrap: [ AppComponent ]
+	imports: [ router, BrowserModule, FormsModule, HttpModule ],
+	styleUrls: ['./style.css'],
+	declarations: [
+		NewProyectComponent,
+		MilestoneComponent,
+		MilestoneListComponent,
+		NewMilestoneComponent,
+		MilestoneDetailComponent,
+		AppComponent,
+		CommentComponent,
+		EpicListComponent,
+		NewEpicComponent,
+		EpicDetailComponent
+	],
+	bootstrap: [ AppComponent ]
 })
 class AppModule { }
 

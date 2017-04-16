@@ -8,7 +8,11 @@ import ProyectService from '../services/proyect.service'
 	inputs: [ 'proyect' ],
 	template: `
 		<h1>Milestones</h1>
-		<div *ngFor="let item of proyect.milestones" [routerLink]="['/noticia', item._id]">{{item.name}}</div>
+		<ul>
+			<li *ngFor="let item of proyect.milestones">
+				<a [routerLink]="['/proyects', proyect._id, 'milestones', item._id]">{{item.name}}</a>
+			</li>
+		</ul>
 		<newMilestone [proyect]="proyect"></newMilestone>`
 })
 
