@@ -13,7 +13,7 @@
           Sin proyecto
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" *ngFor="let proy of proyects">{{proy.name}}</a>
+          <a class="dropdown-item" *ngFor="let proy of proyects" [routerLink]="['/proyects', proy._id]">{{proy.name}}</a>
           <a class="dropdown-item" [routerLink]="['/proyects', 'new']">Crear ...</a>
         </div>
       </li>

@@ -3,6 +3,7 @@ import express from 'express'
 import Post from '../models/Post.js'
 import Comment from '../models/Comment.js'
 import Proyect from '../models/Proyect.js'
+import Milestone from '../models/Milestone.js'
 
 let router = express.Router()
 
@@ -38,6 +39,21 @@ router.post('/proyects', (req, res, next) => {
 router.get('/proyects/:proyect', (req, res, next) => {
 	req.proyect.populate('milestones').execPopulate()
 		.then(proyectoCompleto => res.json(proyectoCompleto))
+		.catch(next)
+})
+
+router.post('/proyects/:proyect/milestones', (req, res, next) => {
+	const proyecto = req.proyect
+	let mile = new Milestone(req.body)
+	mile.proyect = proyecto
+
+	mile.save()
+		.then(mileGuardado => {
+			mile = mileGuardado
+			proyecto.milestones.push(mile)
+			return proyecto.save()
+		})
+		.then(proyectoGuardado => res.json(mile))
 		.catch(next)
 })
 

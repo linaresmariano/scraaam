@@ -17,7 +17,7 @@ export default class ProyectService {
     }
 
     getProyect(id) {
-      return this.http.get(`/proyect/${id}`).toPromise()
+      return this.http.get(`/proyects/${id}`).toPromise()
               .then(response => response.json());
     }
 
@@ -25,6 +25,13 @@ export default class ProyectService {
       this.http.post("/proyects", JSON.stringify(proyect), { headers:{'Content-Type': 'application/json'}})
               .toPromise()
               .then(response => this._proyects.push(proyect))
+              .catch(err => console.log(err))
+    }
+
+    createMilestone(proyect, milestone) {
+      this.http.post(`/proyects/${proyect._id}/milestones`, JSON.stringify(milestone), { headers:{'Content-Type': 'application/json'}})
+              .toPromise()
+              .then(response => proyect.milestones.push(milestone))
               .catch(err => console.log(err))
     }
 }
