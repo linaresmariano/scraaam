@@ -1,38 +1,33 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
 
-import { ActivatedRoute } from '@angular/router';
-import ProyectService from "../services/proyect.service"
+import ProyectService from '../services/proyect.service';
 
 @Component({
-	selector: 'epicDetail',
+	selector: 'newTask',
+	inputs: [ 'epic' ],
 	template: `
-		<div class="container-fluid">
-			<div class="row-fluid">
-
-				<div class="col-lg-6">
-					<h1>{{epic.description}}</h1>
-
-					<comment *ngFor="let comment of epic.comments" [data]="comment"></comment>
-					<newComment></newComment>
-				</div>
-				<div class="col-lg-6">
-					<taskList [epic]="epic"></taskList>
-				</div>
-			</div>
-		</div>
-	`
+		<form>
+			<input [(ngModel)]="data.description" placeholder="Crear" name="description">
+			<button type="button" (click)="onSubmit()">+</button>
+		<form>`
 })
 
-export default class EpicDetailComponent {
-
+export default class NewTaskComponent {
 	constructor(route, proyectService) {
 		this.route = route
 		this.proyectService = proyectService
 	}
 
+	onSubmit() {
+		this.proyectService.createTask(this.proyect, this.milestone, this.epic, this.data)
+		this.data = {}
+	}
+
 	ngOnInit() {
-		this.milestone = {}
+		this.data = {}
 		this.proyect = {}
+		this.milestone = {}
 		this.epic = {}
 		this.route.params.subscribe(params => {
 			this.proyectService.getProyect(params.proyect)
@@ -46,10 +41,10 @@ export default class EpicDetailComponent {
 			this.proyectService.getEpic(params.proyect, params.milestone, params.epic)
 					.then(epic => this.epic = epic)
 					.catch(e => console.log(e));
-		})
+		});
 	}
 }
 
-EpicDetailComponent.parameters = [
+NewTaskComponent.parameters = [
 	ActivatedRoute, ProyectService
 ]

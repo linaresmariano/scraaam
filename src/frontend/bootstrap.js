@@ -20,6 +20,8 @@ import EpicListComponent from './app/components/epicList.component'
 import NewEpicComponent from './app/components/newEpic.component'
 import EpicDetailComponent from './app/components/epicDetail.component'
 import NewCommentComponent from './app/components/newComment.component'
+import TaskListComponent from './app/components/taskList.component'
+import NewTaskComponent from './app/components/newTask.component'
 
 import { RouterModule } from '@angular/router'
 
@@ -46,7 +48,9 @@ let router = RouterModule.forRoot([
 		EpicListComponent,
 		NewEpicComponent,
 		EpicDetailComponent,
-		NewCommentComponent
+		NewCommentComponent,
+		TaskListComponent,
+		NewTaskComponent
 	],
 	bootstrap: [ AppComponent ]
 })

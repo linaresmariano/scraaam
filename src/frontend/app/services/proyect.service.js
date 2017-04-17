@@ -65,6 +65,14 @@ export default class ProyectService {
 							.catch(err => console.log(err))
 		}
 
+		createTask(proyect, milestone, epic, task) {
+			this.http.post(`/proyects/${proyect._id}/milestones/${milestone._id}/epics/${epic._id}/tasks`,
+				JSON.stringify(task), { headers:{'Content-Type': 'application/json'}})
+							.toPromise()
+							.then(response => epic.tasks.push(task))
+							.catch(err => console.log(err))
+		}
+
 }
 
 ProyectService.parameters = [
