@@ -108,12 +108,12 @@ router.post('/proyects/:proyect/milestones/:milestone/epics', (req, res, next) =
 })
 
 router.get('/proyects/:proyect/milestones/:milestone/epics/:epic', (req, res, next) => {
-	req.epic.populate('tasks').execPopulate()
+	req.epic.populate('tasks comments').execPopulate()
 		.then(epicCompleto => res.json(epicCompleto))
 		.catch(next)
 })
 
-router.post('/proyects/:proyect/milestones/:milestone/epics/:epic/task', (req, res, next) => {
+router.post('/proyects/:proyect/milestones/:milestone/epics/:epic/tasks', (req, res, next) => {
 	const proyecto = req.proyect
 	const milestone = req.milestone
 	const epic = req.epic
@@ -130,27 +130,20 @@ router.post('/proyects/:proyect/milestones/:milestone/epics/:epic/task', (req, r
 		.catch(next)
 })
 
-router.put('/noticias/:noticia/upvote', (req, res, next) => {
-	const noticia = req.noticia
-	noticia.upvote()
+router.post('/proyects/:proyect/milestones/:milestone/epics/:epic/comments', (req, res, next) => {
+	const proyecto = req.proyect
+	const milestone = req.milestone
+	const epic = req.epic
+	let com = new Comment(req.body)
+	com.epic = epic
 
-	noticia.save()
-		.then(noticiaGuardada => res.json(noticiaGuardada))
-		.catch(next)
-})
-
-router.post('/noticias/:noticia/comentarios', (req, res, next) => {
-	const noticia = req.noticia
-	let comentario = new Comment(req.body)
-	comentario.post = noticia
-
-	comentario.save()
-		.then(comentarioGuardado => {
-			comentario = comentarioGuardado
-			noticia.comments.push(comentario)
-			return noticia.save()
+	com.save()
+		.then(comGuardado => {
+			com = comGuardado
+			epic.comments.push(com)
+			return epic.save()
 		})
-		.then(noticiaGuardada => res.json(comentario))
+		.then(epicGuardado => res.json(com))
 		.catch(next)
 })
 

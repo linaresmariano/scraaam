@@ -56,6 +56,15 @@ export default class ProyectService {
 							.then(response => milestone.epics.push(epic))
 							.catch(err => console.log(err))
 		}
+
+		createComment(proyect, milestone, epic, comment) {
+			this.http.post(`/proyects/${proyect._id}/milestones/${milestone._id}/epics/${epic._id}/comments`,
+				JSON.stringify(comment), { headers:{'Content-Type': 'application/json'}})
+							.toPromise()
+							.then(response => epic.comments.push(comment))
+							.catch(err => console.log(err))
+		}
+
 }
 
 ProyectService.parameters = [

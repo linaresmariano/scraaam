@@ -19,6 +19,7 @@ import CommentComponent from './app/components/comment.component'
 import EpicListComponent from './app/components/epicList.component'
 import NewEpicComponent from './app/components/newEpic.component'
 import EpicDetailComponent from './app/components/epicDetail.component'
+import NewCommentComponent from './app/components/newComment.component'
 
 import { RouterModule } from '@angular/router'
 
@@ -44,7 +45,8 @@ let router = RouterModule.forRoot([
 		CommentComponent,
 		EpicListComponent,
 		NewEpicComponent,
-		EpicDetailComponent
+		EpicDetailComponent,
+		NewCommentComponent
 	],
 	bootstrap: [ AppComponent ]
 })

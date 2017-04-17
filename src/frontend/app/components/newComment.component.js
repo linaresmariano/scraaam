@@ -1,28 +1,34 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute } from '@angular/router'
 
-import { ActivatedRoute } from '@angular/router';
-import ProyectService from "../services/proyect.service"
+import ProyectService from '../services/proyect.service';
 
 @Component({
-	selector: 'epicDetail',
+	selector: 'newComment',
+	inputs: [ 'epic' ],
 	template: `
-		<h1>{{epic.description}}</h1>
-
-		<comment *ngFor="let comment of epic.comments" [data]="comment"></comment>
-		<newComment></newComment>
-	`
+		<p>Comentar</p>
+		<form>
+				<input [(ngModel)]="data.body" placeholder="Crear" name="body">
+				<button type="button" (click)="onSubmit()">+</button>
+		<form>`
 })
 
-export default class EpicDetailComponent {
-
+export default class NewCommentComponent {
 	constructor(route, proyectService) {
 		this.route = route
 		this.proyectService = proyectService
 	}
 
+	onSubmit() {
+		this.proyectService.createComment(this.proyect, this.milestone, this.epic, this.data)
+		this.data = {}
+	}
+
 	ngOnInit() {
-		this.milestone = {}
+		this.data = {}
 		this.proyect = {}
+		this.milestone = {}
 		this.epic = {}
 		this.route.params.subscribe(params => {
 			this.proyectService.getProyect(params.proyect)
@@ -36,10 +42,10 @@ export default class EpicDetailComponent {
 			this.proyectService.getEpic(params.proyect, params.milestone, params.epic)
 					.then(epic => this.epic = epic)
 					.catch(e => console.log(e));
-		})
+		});
 	}
 }
 
-EpicDetailComponent.parameters = [
+NewCommentComponent.parameters = [
 	ActivatedRoute, ProyectService
 ]
