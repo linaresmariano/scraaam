@@ -12,8 +12,13 @@ import ProyectService from "../services/proyect.service"
 				<div class="col-lg-6">
 					<h1>{{epic.description}}</h1>
 
-					<comment *ngFor="let comment of epic.comments" [data]="comment"></comment>
-					<newComment></newComment>
+					<div class="well">
+						<h4>Comentarios</h4>
+						<div class="well">
+						<comment *ngFor="let comment of epic.comments" [data]="comment"></comment>
+						<newComment [epic]="epic"></newComment>
+						</div>
+					</div>
 				</div>
 				<div class="col-lg-6">
 					<taskList [epic]="epic"></taskList>

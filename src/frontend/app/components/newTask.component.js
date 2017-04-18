@@ -28,7 +28,6 @@ export default class NewTaskComponent {
 		this.data = {}
 		this.proyect = {}
 		this.milestone = {}
-		this.epic = {}
 		this.route.params.subscribe(params => {
 			this.proyectService.getProyect(params.proyect)
 					.then(proy => this.proyect = proy)
@@ -36,10 +35,6 @@ export default class NewTaskComponent {
 
 			this.proyectService.getMilestone(params.proyect, params.milestone)
 					.then(mile => this.milestone = mile)
-					.catch(e => console.log(e));
-
-			this.proyectService.getEpic(params.proyect, params.milestone, params.epic)
-					.then(epic => this.epic = epic)
 					.catch(e => console.log(e));
 		});
 	}

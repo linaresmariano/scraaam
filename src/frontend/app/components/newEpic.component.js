@@ -26,14 +26,9 @@ export default class NewEpicComponent {
 	ngOnInit() {
 		this.data = {}
 		this.proyect = {}
-		this.milestone = {}
 		this.route.params.subscribe(params => {
 			this.proyectService.getProyect(params.proyect)
 					.then(proy => this.proyect = proy)
-					.catch(e => console.log(e));
-
-			this.proyectService.getMilestone(params.proyect, params.milestone)
-					.then(mile => this.milestone = mile)
 					.catch(e => console.log(e));
 		});
 	}

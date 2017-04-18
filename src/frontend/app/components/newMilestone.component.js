@@ -20,19 +20,11 @@ export default class NewMilestoneComponent {
 
 	onSubmit() {
 		this.proyectService.createMilestone(this.proyect, this.data)
-		console.log(this.data)
-		console.log(this.proyect.name)
 		this.data = {}
 	}
 
 	ngOnInit() {
 		this.data = {}
-		this.proyect = {}
-		this.route.params.subscribe(params => {
-			this.proyectService.getProyect(params.id)
-					.then(proy => this.proyect = proy)
-					.catch(e => console.log(e));
-		});
 	}
 }
 

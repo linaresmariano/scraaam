@@ -7,10 +7,9 @@ import ProyectService from '../services/proyect.service';
 	selector: 'newComment',
 	inputs: [ 'epic' ],
 	template: `
-		<p>Comentar</p>
 		<form>
-				<input [(ngModel)]="data.body" placeholder="Crear" name="body">
-				<button type="button" (click)="onSubmit()">+</button>
+			Comentar <input [(ngModel)]="data.body" placeholder="Crear" name="body">
+			<button type="button" (click)="onSubmit()">+</button>
 		<form>`
 })
 
@@ -29,7 +28,6 @@ export default class NewCommentComponent {
 		this.data = {}
 		this.proyect = {}
 		this.milestone = {}
-		this.epic = {}
 		this.route.params.subscribe(params => {
 			this.proyectService.getProyect(params.proyect)
 					.then(proy => this.proyect = proy)
@@ -37,10 +35,6 @@ export default class NewCommentComponent {
 
 			this.proyectService.getMilestone(params.proyect, params.milestone)
 					.then(mile => this.milestone = mile)
-					.catch(e => console.log(e));
-
-			this.proyectService.getEpic(params.proyect, params.milestone, params.epic)
-					.then(epic => this.epic = epic)
 					.catch(e => console.log(e));
 		});
 	}
