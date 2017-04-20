@@ -12,5 +12,7 @@ Levantar Node
 	npm start
 
 
+Run tests
 
+	npm test
 
