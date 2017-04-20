@@ -1,53 +1,31 @@
 import express from 'express'
 
-import Post from '../models/Post.js'
-import Comment from '../models/Comment.js'
 import Proyect from '../models/Proyect.js'
 import Milestone from '../models/Milestone.js'
 import Epic from '../models/Epic.js'
 import Task from '../models/Task.js'
+import Comment from '../models/Comment.js'
 
 let router = express.Router()
 
+const parseParam = (param, clase) => {
+	router.param(param, (req, res, next, value) => {
+	clase.findById(value)
+		.then(saved => {
+			if (!saved) throw new Error(`Object not found ${value}`)
+
+			req[param] = saved
+			next()
+		})
+		.catch(next)
+	})
+}
+
 //Express parameters
-router.param('proyect', (req, res, next, value) => {
-	Proyect.findById(value)
-		.then(proyect => {
-			if (!proyect) {
-				throw new Error(`Proyecto no encontrado ${value}`)
-			}
+parseParam('proyect', Proyect)
+parseParam('milestone', Milestone)
+parseParam('epic', Epic)
 
-			req.proyect = proyect
-			next()
-		})
-		.catch(next)
-})
-
-router.param('milestone', (req, res, next, value) => {
-	Milestone.findById(value)
-		.then(milestone => {
-			if (!milestone) {
-				throw new Error(`Milestone no encontrado ${value}`)
-			}
-
-			req.milestone = milestone
-			next()
-		})
-		.catch(next)
-})
-
-router.param('epic', (req, res, next, value) => {
-	Epic.findById(value)
-		.then(epic => {
-			if (!epic) {
-				throw new Error(`Epic no encontrado ${value}`)
-			}
-
-			req.epic = epic
-			next()
-		})
-		.catch(next)
-})
 
 // Express routes
 router.get('/proyects', (req, res, next) => {
@@ -92,7 +70,6 @@ router.get('/proyects/:proyect/milestones/:milestone', (req, res, next) => {
 })
 
 router.post('/proyects/:proyect/milestones/:milestone/epics', (req, res, next) => {
-	const proyecto = req.proyect
 	const milestone = req.milestone
 	let ep = new Epic(req.body)
 	ep.milestone = milestone
@@ -114,8 +91,6 @@ router.get('/proyects/:proyect/milestones/:milestone/epics/:epic', (req, res, ne
 })
 
 router.post('/proyects/:proyect/milestones/:milestone/epics/:epic/tasks', (req, res, next) => {
-	const proyecto = req.proyect
-	const milestone = req.milestone
 	const epic = req.epic
 	let task = new Task(req.body)
 	task.epic = epic
@@ -131,8 +106,6 @@ router.post('/proyects/:proyect/milestones/:milestone/epics/:epic/tasks', (req, 
 })
 
 router.post('/proyects/:proyect/milestones/:milestone/epics/:epic/comments', (req, res, next) => {
-	const proyecto = req.proyect
-	const milestone = req.milestone
 	const epic = req.epic
 	let com = new Comment(req.body)
 	com.epic = epic
