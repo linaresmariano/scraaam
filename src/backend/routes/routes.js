@@ -38,7 +38,7 @@ router.post('/proyects', (req, res, next) => {
 	const proyect = new Proyect(req.body)
 
 	proyect.save()
-		.then(savedProyect => res.json(savedProyect.id))
+		.then(savedProyect => res.json(savedProyect))
 		.catch(next)
 })
 

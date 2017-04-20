@@ -39,21 +39,21 @@ export default class ProyectService {
 		create(proyect) {
 			this.http.post("/proyects", JSON.stringify(proyect), { headers:{'Content-Type': 'application/json'}})
 							.toPromise()
-							.then(response => this._proyects.push(proyect))
+							.then(response => this._proyects.push(response.json()))
 							.catch(err => console.log(err))
 		}
 
 		createMilestone(proyect, milestone) {
 			this.http.post(`/proyects/${proyect._id}/milestones`, JSON.stringify(milestone), { headers:{'Content-Type': 'application/json'}})
 							.toPromise()
-							.then(response => proyect.milestones.push(milestone))
+							.then(response => proyect.milestones.push(response.json()))
 							.catch(err => console.log(err))
 		}
 
 		createEpic(proyect, milestone, epic) {
 			this.http.post(`/proyects/${proyect._id}/milestones/${milestone._id}/epics`, JSON.stringify(epic), { headers:{'Content-Type': 'application/json'}})
 							.toPromise()
-							.then(response => milestone.epics.push(epic))
+							.then(response => milestone.epics.push(response.json()))
 							.catch(err => console.log(err))
 		}
 
@@ -61,7 +61,7 @@ export default class ProyectService {
 			this.http.post(`/proyects/${proyect._id}/milestones/${milestone._id}/epics/${epic._id}/comments`,
 				JSON.stringify(comment), { headers:{'Content-Type': 'application/json'}})
 							.toPromise()
-							.then(response => epic.comments.push(comment))
+							.then(response => epic.comments.push(response.json()))
 							.catch(err => console.log(err))
 		}
 
@@ -69,7 +69,7 @@ export default class ProyectService {
 			this.http.post(`/proyects/${proyect._id}/milestones/${milestone._id}/epics/${epic._id}/tasks`,
 				JSON.stringify(task), { headers:{'Content-Type': 'application/json'}})
 							.toPromise()
-							.then(response => epic.tasks.push(task))
+							.then(response => epic.tasks.push(response.json()))
 							.catch(err => console.log(err))
 		}
 
