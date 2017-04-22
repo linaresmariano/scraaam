@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component } from '@angular/core'
 
-import ProyectService from '../services/proyect.service';
-import content from './app.component.html';
+import ProyectService from '../services/proyect.service'
+import content from './app.component.html'
 
 @Component({
   selector: 'app-view',

@@ -25,6 +25,7 @@ const parseParam = (param, clase) => {
 parseParam('proyect', Proyect)
 parseParam('milestone', Milestone)
 parseParam('epic', Epic)
+parseParam('task', Task)
 
 
 // Express routes
@@ -117,6 +118,12 @@ router.post('/proyects/:proyect/milestones/:milestone/epics/:epic/comments', (re
 			return epic.save()
 		})
 		.then(epicGuardado => res.json(com))
+		.catch(next)
+})
+
+router.get('/proyects/:proyect/milestones/:milestone/epics/:epic/tasks/:task', (req, res, next) => {
+	req.task.populate('').execPopulate()
+		.then(taskCompleto => res.json(taskCompleto))
 		.catch(next)
 })
 

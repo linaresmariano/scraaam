@@ -22,19 +22,23 @@ import EpicDetailComponent from './app/components/epicDetail.component'
 import NewCommentComponent from './app/components/newComment.component'
 import TaskListComponent from './app/components/taskList.component'
 import NewTaskComponent from './app/components/newTask.component'
+import TaskDetailComponent from './app/components/taskDetail.component'
 
 import { RouterModule } from '@angular/router'
+import {ModalModule} from "ngx-modal"
+
 
 let router = RouterModule.forRoot([
 	{ path: '', redirectTo: '/', pathMatch: 'full' },
 	{ path: 'proyects/new', component: NewProyectComponent },
 	{ path: 'proyects/:id', component: ProyectDetailComponent },
 	{ path: 'proyects/:proyect/milestones/:milestone', component: MilestoneDetailComponent },
-	{ path: 'proyects/:proyect/milestones/:milestone/epics/:epic', component: EpicDetailComponent }
+	{ path: 'proyects/:proyect/milestones/:milestone/epics/:epic', component: EpicDetailComponent },
+	{ path: 'proyects/:proyect/milestones/:milestone/epics/:epic/tasks/:task', component: TaskDetailComponent }
 ], { useHash: true })
 
 @NgModule({
-	imports: [ router, BrowserModule, FormsModule, HttpModule ],
+	imports: [ router, BrowserModule, FormsModule, HttpModule, ModalModule ],
 	styleUrls: ['./style.css'],
 	declarations: [
 		NewProyectComponent,
@@ -50,7 +54,8 @@ let router = RouterModule.forRoot([
 		EpicDetailComponent,
 		NewCommentComponent,
 		TaskListComponent,
-		NewTaskComponent
+		NewTaskComponent,
+		TaskDetailComponent
 	],
 	bootstrap: [ AppComponent ]
 })

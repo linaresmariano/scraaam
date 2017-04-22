@@ -11,6 +11,8 @@ import ProyectService from "../services/proyect.service"
 		<h4>{{milestone.epics ? milestone.epics.length : 0}} Epics - {{milestone.tasks}} Tasks
 
 		<epicList></epicList>
+
+		<button class="btn btn-primary" [routerLink]="['../../']">Volver</button>
 	`
 })
 export default class MilestoneDetailComponent {

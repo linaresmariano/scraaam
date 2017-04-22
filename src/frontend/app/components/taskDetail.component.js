@@ -4,33 +4,30 @@ import { ActivatedRoute } from '@angular/router';
 import ProyectService from "../services/proyect.service"
 
 @Component({
-	selector: 'epicDetail',
+	selector: 'taskDetail',
 	template: `
 		<div class="container-fluid">
 			<div class="row-fluid">
 
 				<div class="col-lg-6">
-					<h1>{{epic.description}}</h1>
+					<h1>{{task.description}}</h1>
 
 					<div class="well">
 						<h4>Comentarios</h4>
 						<div class="well">
-						<comment *ngFor="let comment of epic.comments" [data]="comment"></comment>
-						<newComment [epic]="epic"></newComment>
+						<comment *ngFor="let comment of task.comments" [data]="comment"></comment>
+						<newComment [epic]="task"></newComment>
 						</div>
 					</div>
 
 					<button class="btn btn-primary" [routerLink]="['../../']">Volver</button>
-				</div>
-				<div class="col-lg-6">
-					<taskList [epic]="epic"></taskList>
 				</div>
 			</div>
 		</div>
 	`
 })
 
-export default class EpicDetailComponent {
+export default class TaskDetailComponent {
 
 	constructor(route, proyectService) {
 		this.route = route
@@ -41,6 +38,7 @@ export default class EpicDetailComponent {
 		this.milestone = {}
 		this.proyect = {}
 		this.epic = {}
+		this.task = {}
 		this.route.params.subscribe(params => {
 			this.proyectService.getProyect(params.proyect)
 					.then(proy => this.proyect = proy)
@@ -53,10 +51,14 @@ export default class EpicDetailComponent {
 			this.proyectService.getEpic(params.proyect, params.milestone, params.epic)
 					.then(epic => this.epic = epic)
 					.catch(e => console.log(e));
+
+			this.proyectService.getTask(params.proyect, params.milestone, params.epic, params.task)
+					.then(task => this.task = task)
+					.catch(e => console.log(e));
 		})
 	}
 }
 
-EpicDetailComponent.parameters = [
+TaskDetailComponent.parameters = [
 	ActivatedRoute, ProyectService
 ]

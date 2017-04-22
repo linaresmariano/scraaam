@@ -10,7 +10,7 @@ import ProyectService from '../services/proyect.service'
 		<h2>Tasks</h2>
 		<ul>
 			<li *ngFor="let item of epic.tasks">
-				<a [routerLink]="['/proyects', proyect._id, 'milestones', milestone._id, 'epics', item._id]">
+				<a [routerLink]="['/proyects', proyect._id, 'milestones', milestone._id, 'epics', epic._id, 'tasks', item._id]">
 					{{item.description}}
 				</a>
 			</li>

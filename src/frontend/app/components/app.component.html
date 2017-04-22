@@ -46,7 +46,7 @@
           </a>
           <ul class="dropdown-menu">
             <li *ngFor="let proy of proyects" >
-              <a [routerLink]="['/proyects', proy._id]">{{proy.name}}</a>
+              <a class="dropdown-item" [routerLink]="['/proyects', proy._id]">{{proy.name}}</a>
             </li>
             <li role="separator" class="divider"></li>
             <li><a class="dropdown-item" [routerLink]="['/proyects', 'new']">Crear ...</a></li>
